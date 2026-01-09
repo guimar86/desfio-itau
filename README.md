@@ -16,3 +16,11 @@ These steps assume you have Java 11 and Maven installed.
 - Run the docker image using the command `docker run -p 8080:8080 <image-id>`
 - Access the application at `http://localhost:8080`
 - Enjoy!
+
+
+## Health check
+
+- `http://localhost:8080/actuator/health`
+
+## Parametrization
+The number of minutes can be changed in the application.properties file.
