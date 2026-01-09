@@ -1,5 +1,6 @@
 package com.desafio.itau.service;
 
+import com.desafio.itau.config.StatsConfiguration;
 import com.desafio.itau.entity.Statistics;
 import com.desafio.itau.entity.Transaction;
 import com.desafio.itau.repository.TransactionRepository;
@@ -17,11 +18,11 @@ import java.util.Optional;
 public class StatisticService {
 
     private final TransactionRepository transactionRepository;
-
+    private final StatsConfiguration statsConfig;
 
     public Statistics Statistics() {
 
-        List<Transaction> transactions = transactionRepository.findDataHoraAfter(10);
+        List<Transaction> transactions = transactionRepository.findDataHoraAfter(statsConfig.minutes());
 
         Long count = (long) transactions.size();
 
@@ -54,6 +55,6 @@ public class StatisticService {
                 .filter(Objects::nonNull)
                 .max(BigDecimal::compareTo);
 
-        return new Statistics(count,sum,average,max.orElse(BigDecimal.ZERO),min.orElse(BigDecimal.ZERO));
+        return new Statistics(count, sum, average, max.orElse(BigDecimal.ZERO), min.orElse(BigDecimal.ZERO));
     }
 }
